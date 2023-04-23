@@ -12,7 +12,6 @@ class BookDetailRepositoryImpl implements BookDetailRepository {
   @override
   Future<BookDetailResponse?> getBookDetail() async{
   return _remoteDetailDataSource.getBookDetail();
-    // TODO: implement getBookDetail
   }
 
 

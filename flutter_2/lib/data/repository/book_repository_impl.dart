@@ -10,9 +10,4 @@ class BookRepositoryImpl implements BookRepository {
   @override
   Future<BookResponse?> getBook() async => await _remoteDatasource.getBook();
 
-  @override
-  Future<void> addBook() {
-    // TODO: implement addBook
-    throw UnimplementedError();
-  }
 }

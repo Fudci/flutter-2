@@ -1,9 +1,7 @@
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2/data/datasource/book_remote_datasource_dio.dart';
-import 'package:flutter_2/data/datasource/book_remote_datasource_http.dart';
 import 'package:flutter_2/data/model/book/book_model.dart';
 import 'package:flutter_2/data/repository/book_repository_impl.dart';
 import 'package:flutter_2/domain/use_case/get_book_use_case.dart';
@@ -112,7 +110,7 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   ),
-                  if(_controller.books.value.length == 0 ) CircularProgressIndicator()
+                  if(_controller.books.value.length == 0 ) const CircularProgressIndicator()
                 ],
               );
             }),

@@ -13,8 +13,6 @@ class DetailController extends GetxController {
     final result = await _getBookDetailUseCase.call();
 
     if (result != null) {
-            print('$result,ini result asli,$isbn13');
-
       detailBooks(result);
       update();
     }

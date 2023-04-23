@@ -19,7 +19,6 @@ class HomeController extends GetxController {
 
   void getBook() async {
     final result = await _getBookUseCase.call();
-      print('$result,ini result new');
 
     if (result != null) {
       books(result.books);
@@ -49,6 +48,5 @@ class HomeController extends GetxController {
 
   void getBookByQuery() {
     final query = searchController.value.text;
-    print(query);
   }
 }
