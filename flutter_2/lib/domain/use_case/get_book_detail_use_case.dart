@@ -6,5 +6,5 @@ class GetBookDetailUseCase {
 
   const GetBookDetailUseCase(this._repository);
 
-  Future<BookDetailResponse?> call() async => await _repository.getBookDetail();
+  Future<BookDetailResponse?> call(String isbn13) async => await _repository.getBookDetail(isbn13);
 }

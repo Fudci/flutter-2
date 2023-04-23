@@ -10,7 +10,7 @@ class DetailController extends GetxController {
   Rx<BookDetailResponse> detailBooks = Rx(BookDetailResponse());
 
   void getDetailBook(String isbn13) async {
-    final result = await _getBookDetailUseCase.call();
+    final result = await _getBookDetailUseCase.call(isbn13);
 
     if (result != null) {
       detailBooks(result);

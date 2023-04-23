@@ -10,8 +10,8 @@ class BookDetailRepositoryImpl implements BookDetailRepository {
   const BookDetailRepositoryImpl(this._remoteDetailDataSource);
 
   @override
-  Future<BookDetailResponse?> getBookDetail() async{
-  return _remoteDetailDataSource.getBookDetail();
+  Future<BookDetailResponse?> getBookDetail(isbn13) async{
+  return _remoteDetailDataSource.getBookDetail(isbn13);
   }
 
 
