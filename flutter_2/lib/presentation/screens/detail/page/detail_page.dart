@@ -35,27 +35,13 @@ class DetailPage extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  Stack(
-                    children: [
-                      Column(
+                 Row(
                         children: [
-                          Container(
-                            height: 100,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              child: Image.network(
+                           Image.network(
                                 '${_controller.detailBooks.value.image}',
                                 width: 150,
                                 height: 150,
-                              )),
+                              ),
                           Expanded(
                               child: Text(
                             '${_controller.detailBooks.value.title}',
@@ -63,11 +49,7 @@ class DetailPage extends StatelessWidget {
                           ))
                         ],
                       ),
-                    ],
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
+                 Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -169,22 +151,21 @@ class DetailPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30,top: 20),
-                            child: Expanded( 
-                              
-                              flex: 1,
-                              child: Text('Desciption')),
+                           SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Row(
+                                children: [
+                                  Expanded(child: Text('Description')),
+                                  Expanded(
+                                      child: Text(
+                                          '${_controller.detailBooks.value.desc}'))
+                                ],
+                              ),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30,top: 20),
-                            child: Expanded(
-                              flex: 6,
-                                child:
-                                    Text('${_controller.detailBooks.value.desc}')),
-                          )
                         ],
-                      )),
+                      ),
                 ],
               ),
             ),
@@ -194,18 +175,3 @@ class DetailPage extends StatelessWidget {
     );
   }
 }
-// if (_controller.detailBooks.value.image != null)
-//                     Image.network(
-//                       '${_controller.detailBooks.value.image}',
-//                       width: 500,
-//                       height: 500,
-                      
-//                     ),
-//                   Text('${_controller.detailBooks.value.title}'),
-//                                   Text('${_controller.detailBooks.value.title}'),
-//                   Text('${_controller.detailBooks.value.title}'),
-//                   Text('${_controller.detailBooks.value.title}'),
-//                   Text('${_controller.detailBooks.value.title}'),
-//                   Text('${_controller.detailBooks.value.title}'),
-          
-//                   Text(book.isbn13 ?? 'No ISBN13'),

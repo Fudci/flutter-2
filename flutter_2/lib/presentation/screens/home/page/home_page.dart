@@ -67,9 +67,11 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   TextField(
+                    
                     controller: _controller.searchController.value,
                     onChanged: (value) => _controller.getSearchQuery(),
                     decoration: InputDecoration(
+                      hintText: 'Enter Book to Search and Press Icon Search',
                       suffixIcon: IconButton(
                         onPressed: () => navigateToSearch(context),
                         icon: const Icon(Icons.search),
