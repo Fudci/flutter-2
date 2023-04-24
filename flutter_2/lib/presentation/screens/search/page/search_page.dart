@@ -21,6 +21,14 @@ class SearchPage extends StatelessWidget {
     ),
   );
 
+void navigateToDetail(BuildContext context, Book book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailPage(book: book),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +41,7 @@ class SearchPage extends StatelessWidget {
             builder: (context) {
               return Column(
                 children: [
+                  if(_controller.searchBooks.value.length > 0 )
                   Expanded(
                       child: ListView.separated(
                     itemCount: _controller.searchBooks.value.length,
@@ -41,36 +50,63 @@ class SearchPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final book = _controller.searchBooks.value[index];
                       return InkWell(
-                        onTap: () => null,
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              color: Colors.red,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    book.title ?? 'No title',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
+                              onTap: () => navigateToDetail(context, book),
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 10.0, right: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text('null'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(40.0),
+                                      child: Image.network(
+                                        '${book.image}',
+                                        height: 100.0,
+                                        width: 100.0,
+                                        fit: BoxFit.cover
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            book.title ?? 'No title',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                              '${book.subtitle != "" ? book.subtitle : 'sry donst have Subtitle'}'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ));
                     },
-                  ))
+                  )),if (_controller.searchBooks.value.length == 0)
+                    Center(child: const CircularProgressIndicator())
                 ],
               );
             }),

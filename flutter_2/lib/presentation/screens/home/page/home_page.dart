@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2/data/datasource/book_remote_datasource_dio.dart';
@@ -10,20 +9,22 @@ import 'package:flutter_2/presentation/screens/home/controller/home_controller.d
 import 'package:flutter_2/presentation/screens/search/page/search_page.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final _controller = HomeController(
     GetBookUseCase(
-      BookRepositoryImpl(
-        BookRemoteDatasourceDio(Dio())
-        // BookRemoteDatasourceDio(Dio()),
-        // BookRemoteDatasourceHttp(),
-      ),
+      BookRepositoryImpl(BookRemoteDatasourceDio(Dio())
+          // BookRemoteDatasourceDio(Dio()),
+          // BookRemoteDatasourceHttp(),
+          ),
     ),
   );
-
- 
 
   void navigateToSearch(BuildContext context) {
     Navigator.push(
@@ -46,10 +47,19 @@ class HomePage extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller.getBook();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('HomePage'),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: GetBuilder<HomeController>(
             init: _controller,
             initState: (state) => _controller.getBook(),
@@ -67,50 +77,75 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  if(_controller.books.value.length > 0) 
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: _controller.books.value.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 16),
-                      itemBuilder: (context, index) {
-                        final book = _controller.books.value[index];
+                  if (_controller.books.value.length > 0)
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: _controller.books.value.length,
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 16),
+                        itemBuilder: (context, index) {
+                          final book = _controller.books.value[index];
 
-                        return InkWell(
-                          onTap: () => navigateToDetail(context, book),
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 80,
-                                width: 80,
-                                color: Colors.red,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      book.title ?? 'No title',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                    '${book.subtitle != "" ? book.subtitle : 'sry donst have Subtitle'}'
+                          return InkWell(
+                              onTap: () => navigateToDetail(context, book),
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 10.0, right: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(40.0),
+                                      child: Image.network(
+                                        '${book.image}',
+                                        height: 100.0,
+                                        width: 100.0,
+                                        fit: BoxFit.cover
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            book.title ?? 'No title',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                              '${book.subtitle != "" ? book.subtitle : 'sry donst have Subtitle'}'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        },
+                      ),
                     ),
-                  ),
-                  if(_controller.books.value.length == 0 ) const CircularProgressIndicator()
+                  if (_controller.books.value.length == 0)
+                    Center(child: const CircularProgressIndicator())
                 ],
               );
             }),

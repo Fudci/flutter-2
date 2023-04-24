@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_2/constants/constants.dart';
 import 'package:flutter_2/data/model/book/book_model.dart';
 import 'package:flutter_2/data/model/book_response/book_response_model.dart';
+import 'package:flutter_2/domain/use_case/get_book_search_use_case.dart';
 import 'package:flutter_2/domain/use_case/get_book_use_case.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as client;
 
 class HomeController extends GetxController {
   final GetBookUseCase _getBookUseCase;
+
 
   HomeController(this._getBookUseCase);
 
